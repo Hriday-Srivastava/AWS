@@ -1,0 +1,48 @@
+# ---------------- Spring Boot Deployment ----------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8cruddemoapp-deployment
+  labels:
+    app: k8cruddemoapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8cruddemoapp
+  template:
+    metadata:
+      labels:
+        app: k8cruddemoapp
+    spec:
+      containers:
+        - name: k8cruddemoapp
+          image: hridaysrivastava/k8scruddemoapp:01   # <-- यहाँ अपना image नाम दें That name was given at the time of creation docker image.
+          imagePullPolicy: Always #Kubernetes docker hub registry से image pull करने की कोशिश नहीं करेगा
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:mysql://mysql:3306/students?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "root"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "root"
+
+---
+
+# ---------------- Spring Boot Service ----------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8cruddemoapp-service
+  labels:
+    app: k8cruddemoapp
+spec:
+  type: NodePort       # चाहें तो ClusterIP भी कर सकते हैं
+  selector:
+    app: k8cruddemoapp
+  ports:
+    - port: 8080
+      targetPort: 8080
+      #nodePort: 32080   # optional: Kubernetes चुने तो इसे हटा दें
