@@ -3,14 +3,26 @@ name: Kubernetes CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   sbcrudk8s-ci:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Code Chekout
-          uses: actions/checkout@v4
-        - name: Build the Docker Image
-          run: "docker build -t hridaysrivastava/githubactionsbapp:$GITHUB_SHA -f k8scruddemo/Dockerfile ."
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Jar with Maven
+        run: mvn clean package -DskipTests
+
+      - name: List target folder (Debug)
+        run: ls -la target/
+
+      - name: Build Docker Image
+        run: docker build -t hridaysrivastava/githubactionsbapp:$GITHUB_SHA -f k8scruddemo/Dockerfile .
