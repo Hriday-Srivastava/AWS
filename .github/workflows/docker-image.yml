@@ -20,9 +20,11 @@ jobs:
 
       - name: Build Jar with Maven
         run: mvn clean package -DskipTests
+        working-directory: k8scruddemo
 
       - name: List target folder (Debug)
         run: ls -la target/
 
       - name: Build Docker Image
-        run: docker build -t hridaysrivastava/githubactionsbapp:$GITHUB_SHA -f k8scruddemo/Dockerfile .
+        run: docker build -t hridaysrivastava/githubactionsbapp:$GITHUB_SHA .
+        working-directory: k8scruddemo
