@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: k8cruddemoapp
-          image: hridaysrivastava/k8scruddemoapp:${GITHUB_SHA::7} # <-- यहाँ अपना image नाम दें That name was given at the time of creation docker image.
+          image: hridaysrivastava/k8scruddemoapp:7277f3d # <-- यहाँ अपना image नाम दें That name was given at the time of creation docker image.
           imagePullPolicy: Always #Kubernetes docker hub registry से image pull करने की कोशिश नहीं करेगा
           ports:
             - containerPort: 8080
@@ -47,4 +47,4 @@ spec:
   template:
     spec:
       containers:
-        - image: hridaysrivastava/k8scruddemoapp:${GITHUB_SHA::7}
+        - image: hridaysrivastava/k8scruddemoapp:7277f3d
