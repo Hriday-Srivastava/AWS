@@ -23,5 +23,5 @@ jobs:
         working-directory: k8scruddemo
 
       - name: Build Docker Image
-        run: docker build -t hridaysrivastava/githubactionsbapp:$GITHUB_SHA .
+        run: docker build -t hridaysrivastava/githubactionsbapp:${GITHUB_SHA::7} .
         working-directory: k8scruddemo
