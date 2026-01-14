@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: write   # 👈 IMPORTANT
+
 jobs:
   sbcrudk8s-ci:
     runs-on: ubuntu-latest
