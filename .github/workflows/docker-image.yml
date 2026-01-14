@@ -52,6 +52,6 @@ jobs:
         git config --global user.email "github-actions@github.com"
         git config --global user.name "github-actions"
 
-        git add k8s-cruddemoapp-deploy-svc.yml
+        git add k8scruddemo/k8s-cruddemoapp-deploy-svc.yml
         git commit -m "Update image tag to ${GITHUB_SHA::7}"
         git push
