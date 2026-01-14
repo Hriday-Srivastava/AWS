@@ -47,8 +47,9 @@ jobs:
     # -------- Update Deployment YAML ----------
     - name: Update image tag in Deployment file
       run: |
-        yq -i '.spec.template.spec.containers[0].image = "hridaysrivastava/k8scruddemoapp:${GITHUB_SHA::7}"' k8scruddemo/k8s-cruddemoapp-deploy-svc.yml
-
+        #Short commit hash
+        SHORT_SHA=${GITHUB_SHA::7}
+        yq -i ".spec.template.spec.containers[0].image = \"hridaysrivastava/k8scruddemoapp:${SHORT_SHA}\"" k8scruddemo/k8s-cruddemoapp-deploy-svc.yml
     # -------- Commit updated file back to repo ----------
     - name: Commit and Push changes
       run: |
