@@ -13,4 +13,4 @@ jobs:
         - name: Code Chekout
           uses: actions/checkout@v4
         - name: Build the Docker Image
-          run: "docker build -t hridaysrivastava/githubactionsbapp:$GITHUB_SHA ."
+          run: "docker build -t hridaysrivastava/githubactionsbapp:$GITHUB_SHA -f k8scruddemo/Dockerfile ."
