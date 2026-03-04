@@ -4,7 +4,7 @@ Description: orderapidynamodb
 
 Globals:
   Function:
-    Runtime: java25
+    Runtime: java21
     CodeUri: orderapidynamodb
     Architectures:
       - x86_64
@@ -49,3 +49,15 @@ Resources:
           Properties:
             Path: /orders
             Method: GET
+Outputs:
+  OrdersApiEndpoint:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/orders"
+
+  CreateOrderFunctionArn:
+    Description: "Create Order Lambda Function ARN"
+    Value: !GetAtt CreateOrderFunction.Arn
+
+  CreateOrderFunctionIamRoleArn:
+    Description: "Create Order Lambda Function IAM Role ARN"
+    Value: !GetAtt CreateOrderFunctionRole.Arn

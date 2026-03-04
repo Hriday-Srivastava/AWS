@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: orderapidynamodb
 Globals:
   Function:
-    Runtime: java25
+    Runtime: java21
     CodeUri: orderapidynamodb
     Architectures:
     - x86_64
@@ -54,3 +54,20 @@ Resources:
       CodeUri: RetrieveOrderFunction
     Metadata:
       SamResourceId: RetrieveOrderFunction
+Outputs:
+  OrdersApiEndpoint:
+    Description: API Gateway endpoint URL
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/orders
+  CreateOrderFunctionArn:
+    Description: Create Order Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - CreateOrderFunction
+      - Arn
+  CreateOrderFunctionIamRoleArn:
+    Description: Create Order Lambda Function IAM Role ARN
+    Value:
+      Fn::GetAtt:
+      - CreateOrderFunctionRole
+      - Arn

@@ -17,8 +17,8 @@ lint = true
 capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
-stack_name = "apis"
-s3_prefix = "apis"
+stack_name = "hhhhh"
+s3_prefix = "hhhhh"
 image_repositories = []
 
 [default.package.parameters]
