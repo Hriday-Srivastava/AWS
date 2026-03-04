@@ -12,12 +12,10 @@ import lambda.dto.Order;
 
 public class RetrieveOrderLambda {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final AmazonDynamoDB dynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
     public APIGatewayProxyResponseEvent RetrieveOrder(APIGatewayProxyRequestEvent requestEvent) throws JsonProcessingException {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-
-        AmazonDynamoDB dynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
         ScanResult scanResult = dynamoDB.scan(new ScanRequest().withTableName(System.getenv("ORDERS_TABLE")));
         var oders = scanResult.getItems().stream()
                 .map(item-> new Order(item.get("id").getS(),
